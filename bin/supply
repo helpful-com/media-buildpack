@@ -89,10 +89,15 @@ if [ $? != 0 ]; then
 fi
 
 
-echo "exporting PATH and LIBRARY_PATH" | indent
+echo "exporting PATH" | indent
+echo "current PATH = $PATH" | indent
 PROFILE_PATH="$BUILD_DIR/.profile.d/ffmpeg.sh"
+echo "to be set PROFILE_PATH = $PROFILE_PATH" | indent
 
 mkdir -p $(dirname $PROFILE_PATH)
+if [ $? != 0 ]; then
+    echo "Error - unable to create $PROFILE_PATH" | indent
+    exit 1
+fi
 
 echo 'export PATH="$PATH:$HOME/vendor/ffmpeg/"' >> $PROFILE_PATH
-# echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/vendor/ffmpeg/lib"' >> $PROFILE_PATH
