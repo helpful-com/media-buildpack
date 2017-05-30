@@ -29,8 +29,10 @@ function indent() {
 }
 
 unset GIT_DIR
+TERM=${TERM:-dumb}
 
 echo "-----> Install ffmpeg"
+echo "-----> Running on $TERM"
 
 BUILD_DIR=$1
 VENDOR_DIR="vendor"
@@ -49,8 +51,11 @@ cd $BUILD_DIR
 mkdir -p $VENDOR_DIR
 cd $VENDOR_DIR
 
+TEMP_FILE=ffmpeg.tar.xz
+
 echo "-----> Downloading $DOWNLOAD_URL"
-curl -L --silent $DOWNLOAD_URL | gunzip - | tar xvf -
+curl -L --silent $DOWNLOAD_URL > $TEMP_FILE
+tar xzvf $TEMP_FILE
 if [ $? != 0 ]; then
     echo "Error - unable to install ffmpeg" | indent
     exit 1
