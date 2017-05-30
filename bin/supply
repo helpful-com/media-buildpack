@@ -57,15 +57,24 @@ TEMP_FILE_MD5=ffmpeg.tar.xz.md5
 echo "aebf00c8b6aee7f0ff5f041acfb9f1e9  ffmpeg-release-64bit-static.tar.xz" >> $TEMP_FILE_MD5
 echo "-----> Downloading $DOWNLOAD_URL"
 curl -L --silent $DOWNLOAD_URL > $TEMP_FILE
-tar xzvf $TEMP_FILE
-echo "-----> Checking MD5 of $TEMP_FILE"
-md5 $TEMP_FILE
-md5sum $TEMP_FILE
-
 if [ $? != 0 ]; then
     echo "Error - unable to install ffmpeg" | indent
     exit 1
 fi
+
+echo "-----> Checking MD5 of $TEMP_FILE"
+md5sum $TEMP_FILE
+if [ $? != 0 ]; then
+    echo "Error - unable to check MD5" | indent
+    exit 1
+fi
+
+tar xzvf $TEMP_FILE
+if [ $? != 0 ]; then
+    echo "Error - unable to extract archive $TEMP_FILE" | indent
+    exit 1
+fi
+
 
 ln -s ./ffmpeg-${FFMPEG_VERSION}-64bit-static/ ./ffmpeg
 if [ $? != 0 ]; then
@@ -74,6 +83,11 @@ if [ $? != 0 ]; then
 fi
 
 ./ffmpeg/ffmpeg --help
+if [ $? != 0 ]; then
+    echo "Error - ffmpeg was not installed properly (this means that the download from $DOWNLOAD_URL may be corrupted)" | indent
+    exit 1
+fi
+
 
 echo "exporting PATH and LIBRARY_PATH" | indent
 PROFILE_PATH="$BUILD_DIR/.profile.d/ffmpeg.sh"
