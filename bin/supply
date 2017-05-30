@@ -50,7 +50,7 @@ mkdir -p $VENDOR_DIR
 cd $VENDOR_DIR
 
 echo "-----> Downloading $DOWNLOAD_URL"
-curl -L --silent $DOWNLOAD_URL | tar xvzf -
+curl -L --silent $DOWNLOAD_URL | tar xvzf
 if [ $? != 0 ]; then
     echo "Error - unable to install ffmpeg" | indent
     exit 1
