@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "Helpful ffmpeg buildpack"
+exit 0
