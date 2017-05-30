@@ -39,11 +39,11 @@ FFMPEG_VERSION=${FFMPEG_VERSION:-3.3.1}
 
 DOWNLOAD_URL_SOURCE="http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.bz2"
 DOWNLOAD_URL_BINARY="https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz"
-DOWNLOAD_URL=$DOWNLOAD_URL_SOURCE
+DOWNLOAD_URL=$DOWNLOAD_URL_BINARY
 
 echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
 echo "DOWNLOAD_URL_SOURCE = " $DOWNLOAD_URL_SOURCE | indent
-echo "DOWNLOAD_URL_BIN = " $DOWNLOAD_URL_BIN | indent
+echo "DOWNLOAD_URL_BINARY = " $DOWNLOAD_URL_BINARY | indent
 
 cd $BUILD_DIR
 mkdir -p $VENDOR_DIR
