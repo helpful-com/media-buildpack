@@ -69,7 +69,7 @@ if [ $? != 0 ]; then
     exit 1
 fi
 
-tar xzvf $TEMP_FILE
+tar xJvf $TEMP_FILE
 if [ $? != 0 ]; then
     echo "Error - unable to extract archive $TEMP_FILE" | indent
     exit 1
