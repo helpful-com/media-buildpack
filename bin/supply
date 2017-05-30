@@ -31,6 +31,7 @@ function indent() {
 unset GIT_DIR
 TERM=${TERM:-dumb}
 
+echo "-----> Supply"
 echo "-----> Install ffmpeg"
 echo "-----> Running on $TERM"
 

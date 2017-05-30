@@ -30,43 +30,11 @@ function indent() {
 
 unset GIT_DIR
 
-echo "-----> Install ffmpeg"
+echo "-----> Calling Supply"
 
 BUILD_DIR=$1
-VENDOR_DIR="vendor"
-
-FFMPEG_VERSION=${FFMPEG_VERSION:-3.3.1}
-
-DOWNLOAD_URL_SOURCE="http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.bz2"
-DOWNLOAD_URL_BINARY="https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz"
-DOWNLOAD_URL=$DOWNLOAD_URL_SOURCE
-
-echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
-echo "DOWNLOAD_URL_SOURCE = " $DOWNLOAD_URL_SOURCE | indent
-echo "DOWNLOAD_URL_BIN = " $DOWNLOAD_URL_BIN | indent
-
-cd $BUILD_DIR
-mkdir -p $VENDOR_DIR
-cd $VENDOR_DIR
-
-curl -L --silent $DOWNLOAD_URL | tar xvzf -
-if [ $? != 0 ]; then
-    echo "Error - unable to install ffmpeg" | indent
-    exit 1
-fi
-
-ln -s ./ffmpeg-${FFMPEG_VERSION}-64bit-static/ ./ffmpeg
-if [ $? != 0 ]; then
-    echo "Error - unable to link installation of ffmpeg" | indent
-    exit 1
-fi
-
-./ffmpeg/ffmpeg --help
-
-echo "exporting PATH and LIBRARY_PATH" | indent
-PROFILE_PATH="$BUILD_DIR/.profile.d/ffmpeg.sh"
-
-mkdir -p $(dirname $PROFILE_PATH)
-
-echo 'export PATH="$PATH:$HOME/vendor/ffmpeg/"' >> $PROFILE_PATH
-# echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/vendor/ffmpeg/lib"' >> $PROFILE_PATH
+CACHE_DIR=$2
+DEPS_DIR=$3
+export BUILDPACK_DIR=`dirname $(readlink -f ${BASH_SOURCE%/*})`
+$BUILDPACK_DIR/bin/supply "$BUILD_DIR" "$CACHE_DIR" "$DEPS_DIR" 0
+$BUILDPACK_DIR/bin/finalize "$BUILD_DIR" "$CACHE_DIR" "$DEPS_DIR" 0

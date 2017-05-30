@@ -1,1 +1,30 @@
 #!/usr/bin/env bash
+[ $VERBOSE ] && set -o errtrace
+set -o nounset
+
+# Reasonable signals to catch / trap, without the caveats of
+# #!/bin/bash -[Ee]u
+__HUP=1
+__INT=2
+__QUIT=3
+__TERM=15
+trap onexit $__HUP $__INT $__QUIT $__TERM
+
+function onexit() {
+    local exit_status=${1:-$?}
+    echo Exiting $0 with $exit_status
+    exit $exit_status
+}
+
+scriptname=`basename $0`
+globalargs="$@"
+
+function indent() {
+  c='s/^/       /'
+  case $(uname) in
+    Darwin) sed -l "$c";;
+    *)      sed -u "$c";;
+  esac
+}
+
+echo "-----> Finalizing"
