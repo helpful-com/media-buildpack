@@ -36,7 +36,7 @@ echo "-----> Install ffmpeg"
 echo "-----> Running on $TERM"
 
 BUILD_DIR=$1
-VENDOR_DIR="vendor"
+VENDOR_DIR="helpful-packages"
 
 FFMPEG_VERSION=${FFMPEG_VERSION:-3.3.1}
 
@@ -101,4 +101,4 @@ if [ $? != 0 ]; then
     exit 1
 fi
 
-echo 'export PATH="$PATH:$HOME/vendor/ffmpeg/"' >> $PROFILE_PATH
+echo 'export PATH="$PATH:$HOME/helpful-packages/ffmpeg/"' >> $PROFILE_PATH
