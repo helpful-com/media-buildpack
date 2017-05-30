@@ -52,10 +52,16 @@ mkdir -p $VENDOR_DIR
 cd $VENDOR_DIR
 
 TEMP_FILE=ffmpeg.tar.xz
+TEMP_FILE_MD5=ffmpeg.tar.xz.md5
 
+echo "aebf00c8b6aee7f0ff5f041acfb9f1e9  ffmpeg-release-64bit-static.tar.xz" >> $TEMP_FILE_MD5
 echo "-----> Downloading $DOWNLOAD_URL"
 curl -L --silent $DOWNLOAD_URL > $TEMP_FILE
 tar xzvf $TEMP_FILE
+echo "-----> Checking MD5 of $TEMP_FILE"
+md5 $TEMP_FILE
+md5sum $TEMP_FILE
+
 if [ $? != 0 ]; then
     echo "Error - unable to install ffmpeg" | indent
     exit 1
