@@ -38,7 +38,7 @@ echo "-----> Running on $TERM"
 BUILD_DIR=$1
 VENDOR_DIR="helpful-packages"
 
-FFMPEG_VERSION=${FFMPEG_VERSION:-3.3.2}
+FFMPEG_VERSION=${FFMPEG_VERSION:-3.3.3}
 DOWNLOAD_URL_DMG="https://evermeet.cx/ffmpeg/ffmpeg-86281-g2413397.dmg"
 DOWNLOAD_URL_SOURCE="http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.bz2"
 DOWNLOAD_URL_BINARY="https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz"
@@ -55,7 +55,7 @@ cd $VENDOR_DIR
 TEMP_FILE=ffmpeg.tar.xz
 TEMP_FILE_MD5=ffmpeg.tar.xz.md5
 
-echo "aebf00c8b6aee7f0ff5f041acfb9f1e9  ffmpeg-release-64bit-static.tar.xz" >> $TEMP_FILE_MD5
+echo "86832e00da1dd40df052231baa194ff8  ffmpeg-release-64bit-static.tar.xz" >> $TEMP_FILE_MD5
 echo "-----> Downloading $DOWNLOAD_URL"
 curl -L --silent $DOWNLOAD_URL > $TEMP_FILE
 if [ $? != 0 ]; then
