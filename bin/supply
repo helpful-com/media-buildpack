@@ -77,7 +77,8 @@ if [ $? != 0 ]; then
 fi
 
 
-ln -s ./ffmpeg-${FFMPEG_VERSION}-64bit-static/ ./ffmpeg
+# ln -s ./ffmpeg-${FFMPEG_VERSION}-64bit-static/ ./ffmpeg
+ln -s ./ffmpeg-*-64bit-static/ ./ffmpeg
 if [ $? != 0 ]; then
     echo "Error - unable to link installation of ffmpeg" | indent
     exit 1
