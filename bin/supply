@@ -32,12 +32,29 @@ unset GIT_DIR
 TERM=${TERM:-dumb}
 
 echo "-----> Supply"
-echo "-----> Install ffmpeg"
 echo "-----> Running on $TERM"
+echo "-----> Install tools"
 
 BUILD_DIR=$1
 VENDOR_DIR="helpful-packages"
+echo "-----> Checking installation of ImageMagick toolset"
+CONVERT=`which convert`
+MOGRIFY=`which mogrify`
+exec $MOGRIFY --version
+if [ $? != 0 ]; then
+    echo "Error - installation does not include mogrify!!!" | indent
+    exit 1
+fi
 
+exec $CONVERT --version
+if [ $? != 0 ]; then
+    echo "Error - installation does not include convert!!!" | indent
+    exit 1
+fi
+
+echo "-----> Successfully detected ImageMagick toolset"
+
+echo "-----> Install ffmpeg"
 FFMPEG_VERSION=${FFMPEG_VERSION:-3.3.3}
 DOWNLOAD_URL_DMG="https://evermeet.cx/ffmpeg/ffmpeg-86281-g2413397.dmg"
 DOWNLOAD_URL_SOURCE="http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.bz2"
