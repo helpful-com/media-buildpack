@@ -40,13 +40,13 @@ VENDOR_DIR="helpful-packages"
 echo "-----> Checking installation of ImageMagick toolset"
 CONVERT=`which convert`
 MOGRIFY=`which mogrify`
-exec $MOGRIFY --version
+$MOGRIFY --version
 if [ $? != 0 ]; then
     echo "Error - installation does not include mogrify!!!" | indent
     exit 1
 fi
 
-exec $CONVERT --version
+$CONVERT --version
 if [ $? != 0 ]; then
     echo "Error - installation does not include convert!!!" | indent
     exit 1
